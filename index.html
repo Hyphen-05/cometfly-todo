@@ -1,0 +1,1020 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0b0d12">
+<title>Cometfly TODO</title>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icon-192.png">
+<script>if ("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js").catch(() => {});</script>
+</head>
+<body>
+<title>Cometfly TODO</title>
+<link rel="icon" type="image/png" href="data:image/png;base64,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">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wdth,wght@8..144,25..151,300..1000&family=Roboto+Mono:wght@400;500&display=swap">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.15.2/Sortable.min.js"></script>
+<style>
+/* Layout: a section rail on the left, the sections as tonal M3 Expressive cards on the right, an "up next" strip
+   on top. Dark-first like the app (ThemeMode.ALWAYS_DARK); section colours start from Cometfly's ArtGradients. */
+:root {
+  color-scheme: dark;
+  --bg: #0b0d12; --surface: #141720; --surface-2: #1b1f2a; --surface-3: #232836; --line: #272c3a;
+  --text: #e9ebf3; --muted: #9ca3b7; --faint: #646b80;
+  --primary: #3be3c6; --on-primary: #00382f; --primary-soft: color-mix(in srgb, #3be3c6 16%, transparent);
+  --note: #f2b33d; --note-bg: color-mix(in srgb, #f2b33d 11%, var(--surface-2)); --note-text: #f6d58f;
+  --code-bg: #232836; --mark: color-mix(in srgb, #f2b33d 45%, transparent); --danger: #ff6b7d;
+  --glow: color-mix(in srgb, #3be3c6 9%, transparent); --glow-2: color-mix(in srgb, #e04fd8 8%, transparent);
+  --lift: 0 1px 0 rgba(255,255,255,.03) inset, 0 18px 40px -18px rgba(0,0,0,.6);
+  --display: "Roboto Flex", "Segoe UI Variable Display", "Segoe UI", system-ui, sans-serif;
+  --body: "Roboto Flex", "Segoe UI Variable Text", "Segoe UI", system-ui, sans-serif;
+  --mono: "Roboto Mono", "Cascadia Code", Consolas, monospace;
+  --r-card: 28px; --r-item: 18px;
+}
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]) {
+    color-scheme: light;
+    --bg: #f2f3f7; --surface: #ffffff; --surface-2: #f0f2f7; --surface-3: #e6e9f1; --line: #e0e3ec;
+    --text: #141721; --muted: #5a6175; --faint: #9aa0b2;
+    --primary: #00806e; --on-primary: #ffffff; --primary-soft: color-mix(in srgb, #00806e 12%, transparent);
+    --note: #b57a06; --note-bg: #fff6df; --note-text: #6a4800;
+    --code-bg: #eceef4; --mark: #ffe08a; --danger: #c8344a;
+    --glow: color-mix(in srgb, #3be3c6 14%, transparent); --glow-2: color-mix(in srgb, #e04fd8 9%, transparent);
+    --lift: 0 1px 2px rgba(20,23,33,.05), 0 12px 32px -16px rgba(20,23,33,.18);
+  }
+}
+:root[data-theme="light"] {
+  color-scheme: light;
+  --bg: #f2f3f7; --surface: #ffffff; --surface-2: #f0f2f7; --surface-3: #e6e9f1; --line: #e0e3ec;
+  --text: #141721; --muted: #5a6175; --faint: #9aa0b2;
+  --primary: #00806e; --on-primary: #ffffff; --primary-soft: color-mix(in srgb, #00806e 12%, transparent);
+  --note: #b57a06; --note-bg: #fff6df; --note-text: #6a4800;
+  --code-bg: #eceef4; --mark: #ffe08a; --danger: #c8344a;
+  --glow: color-mix(in srgb, #3be3c6 14%, transparent); --glow-2: color-mix(in srgb, #e04fd8 9%, transparent);
+  --lift: 0 1px 2px rgba(20,23,33,.05), 0 12px 32px -16px rgba(20,23,33,.18);
+}
+
+* { box-sizing: border-box; }
+html { background: var(--bg); }
+body {
+  margin: 0; color: var(--text); font: 400 15px/1.55 var(--body); font-variation-settings: "opsz" 15;
+  -webkit-font-smoothing: antialiased; min-height: 100vh;
+  background:
+    radial-gradient(900px 500px at 92% -8%, var(--glow), transparent 70%),
+    radial-gradient(700px 420px at -10% 10%, var(--glow-2), transparent 70%),
+    var(--bg);
+  background-attachment: fixed;
+}
+button { font: inherit; color: inherit; }
+:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }
+
+/* ---------- top bar ---------- */
+header {
+  position: sticky; top: env(safe-area-inset-top, 0px); z-index: 20;
+  background: color-mix(in srgb, var(--bg) 78%, transparent); backdrop-filter: blur(18px) saturate(1.3);
+}
+.bar {
+  max-width: 1240px; margin: 0 auto; padding: 16px 24px 14px; display: flex; align-items: center; gap: 16px; flex-wrap: wrap;
+}
+.brand { display: flex; align-items: center; gap: 12px; margin-right: auto; min-width: 0; }
+.appicon { flex: none; border-radius: 50%; box-shadow: 0 6px 18px -8px rgba(0,151,167,.7); }
+.brand h1 {
+  margin: 0; font: 760 22px/1 var(--display); font-variation-settings: "wdth" 118, "opsz" 40; letter-spacing: -.015em;
+}
+.brand .sub { margin-top: 4px; font-size: 12.5px; color: var(--muted); font-variant-numeric: tabular-nums; }
+.search { position: relative; flex: 0 1 320px; }
+.search input {
+  width: 100%; height: 44px; padding: 0 40px 0 44px; border-radius: 999px; border: 0; outline: none;
+  background: var(--surface-2); color: var(--text); font: 400 14.5px var(--body);
+  box-shadow: inset 0 0 0 1px var(--line); transition: box-shadow .2s, background .2s;
+}
+.search input::placeholder { color: var(--faint); }
+.search input:focus { background: var(--surface); box-shadow: inset 0 0 0 2px var(--primary); }
+.search input::-webkit-search-cancel-button { display: none; }
+.search > svg { position: absolute; left: 16px; top: 50%; transform: translateY(-50%); color: var(--muted); pointer-events: none; }
+.search kbd {
+  position: absolute; right: 14px; top: 50%; transform: translateY(-50%); font: 500 11px var(--mono); color: var(--faint);
+  border: 1px solid var(--line); border-radius: 6px; padding: 1px 6px;
+}
+.search input:focus ~ kbd, .search input:not(:placeholder-shown) ~ kbd { display: none; }
+.status {
+  display: inline-flex; align-items: center; gap: 8px; height: 32px; padding: 0 12px 0 10px; border-radius: 999px;
+  background: var(--surface-2); color: var(--muted); font-size: 12.5px; box-shadow: inset 0 0 0 1px var(--line);
+}
+.pulse { width: 8px; height: 8px; border-radius: 50%; background: var(--primary); position: relative; }
+.pulse::after {
+  content: ""; position: absolute; inset: -4px; border-radius: 50%; border: 2px solid var(--primary); opacity: 0;
+  animation: ping 2.4s ease-out infinite;
+}
+.pulse.saving { background: var(--note); } .pulse.saving::after { border-color: var(--note); animation-duration: .9s; }
+.pulse.off { background: var(--danger); } .pulse.off::after { display: none; }
+@keyframes ping { 0% { transform: scale(.6); opacity: .7; } 100% { transform: scale(1.8); opacity: 0; } }
+
+/* ---------- page grid ---------- */
+.page {
+  max-width: 1240px; margin: 0 auto; padding-inline: 24px; padding-block: 8px 96px;
+  display: grid; grid-template-columns: 232px minmax(0, 1fr); gap: 28px; align-items: start;
+}
+.rail { position: sticky; top: 96px; display: flex; flex-direction: column; gap: 2px; }
+.rail-label {
+  font: 600 11px var(--body); letter-spacing: .09em; text-transform: uppercase; color: var(--faint); padding: 8px 14px 8px;
+}
+.rail button {
+  display: flex; align-items: center; gap: 10px; width: 100%; border: 0; background: none; cursor: pointer; text-align: left;
+  padding: 9px 14px; border-radius: 999px; color: var(--muted); font-size: 14px; transition: background .15s, color .15s;
+}
+.rail button:hover { background: var(--surface-2); color: var(--text); }
+.rail button.dim { opacity: .4; }
+.rail .dot { width: 9px; height: 9px; border-radius: 3px; flex: none; }
+.rail .n { margin-left: auto; font-size: 12px; color: var(--faint); font-variant-numeric: tabular-nums; }
+.rail-tools { display: flex; gap: 6px; padding: 14px 8px 0; }
+.chip {
+  border: 0; cursor: pointer; height: 32px; padding: 0 14px; border-radius: 999px; font-size: 12.5px; font-weight: 500;
+  background: var(--surface-2); color: var(--muted); box-shadow: inset 0 0 0 1px var(--line); transition: background .15s, color .15s;
+}
+.chip:hover { color: var(--text); background: var(--surface-3); }
+.content { min-width: 0; display: flex; flex-direction: column; gap: 16px; }
+
+/* ---------- chat ---------- */
+.chat {
+  background: var(--surface); border-radius: var(--r-card); box-shadow: var(--lift), inset 0 0 0 1px var(--line);
+  padding: 18px 18px 14px; display: flex; flex-direction: column; gap: 12px;
+}
+.chat-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 10px; }
+.chat-head h2 { margin: 0; font: 720 21px/1.15 var(--display); font-variation-settings: "wdth" 112, "opsz" 32; letter-spacing: -.01em; }
+.chat-count { font-size: 12.5px; color: var(--muted); }
+.chat-head p { flex-basis: 100%; margin: 0; font-size: 13px; color: var(--muted); }
+.bubbles { display: flex; flex-direction: column; align-items: flex-end; gap: 8px; max-height: 340px; overflow-y: auto; padding: 2px; }
+.bubble {
+  max-width: min(560px, 88%); background: var(--primary-soft); color: var(--text); padding: 10px 14px 8px;
+  border-radius: 20px 20px 6px 20px; display: flex; flex-direction: column; gap: 4px;
+}
+.btext { overflow-wrap: anywhere; }
+.bmeta { display: flex; justify-content: flex-end; align-items: center; gap: 10px; font-size: 11.5px; color: var(--muted); font-variant-numeric: tabular-nums; }
+.bdel { border: 0; background: none; padding: 2px 6px; border-radius: 8px; cursor: pointer; font-size: 11.5px; color: var(--muted); opacity: 0; transition: opacity .15s; }
+.bubble:hover .bdel, .bdel:focus-visible, .bdel.sure { opacity: 1; }
+.bdel:hover { color: var(--danger); }
+.bdel.sure { color: var(--danger); font-weight: 600; }
+.chat-empty { margin: 0; align-self: stretch; font-size: 13.5px; color: var(--faint); }
+.composer { display: flex; gap: 8px; align-items: flex-end; }
+.composer textarea {
+  flex: 1; min-width: 0; resize: none; max-height: 160px; min-height: 44px; padding: 11px 16px; border-radius: 22px; border: 0;
+  background: var(--surface-2); color: var(--text); font: 400 14.5px/1.45 var(--body); outline: none;
+  box-shadow: inset 0 0 0 1px var(--line); transition: box-shadow .2s;
+}
+.composer textarea:focus { box-shadow: inset 0 0 0 2px var(--primary); }
+.send {
+  flex: none; width: 44px; height: 44px; border: 0; border-radius: 50%; cursor: pointer; display: grid; place-items: center;
+  background: var(--primary); color: var(--on-primary); transition: transform .25s cubic-bezier(.2,1.4,.4,1);
+}
+.send:hover { transform: scale(1.06); }
+
+/* ---------- add a to-do, move a section ---------- */
+.additem { display: flex; align-items: center; gap: 8px; margin: 0 10px 12px; padding: 4px 6px 4px 14px; border-radius: var(--r-item); }
+.additem:focus-within { background: var(--surface-2); }
+.additem .plus { color: var(--faint); font: 500 18px/1 var(--display); width: 22px; text-align: center; }
+.additem input {
+  flex: 1; min-width: 0; height: 36px; border: 0; background: none; color: var(--text); font: 400 14.5px var(--body); outline: none;
+}
+.additem input::placeholder { color: var(--faint); }
+.additem .chip { display: none; }
+.additem:focus-within .chip { display: inline-block; }
+.sgrip { color: var(--faint); cursor: grab; display: grid; place-items: center; height: 44px; opacity: 0; transition: opacity .15s; }
+.shead:hover .sgrip, .shead:focus-visible .sgrip { opacity: 1; }
+.sgrip.off { cursor: default; }
+section.sec.sortable-fallback { box-shadow: 0 24px 48px -12px rgba(0,0,0,.55), inset 0 0 0 1px var(--line) !important; }
+
+/* ---------- up next ---------- */
+.upnext h2, .eyebrow {
+  margin: 0 0 10px; font: 600 11px var(--body); letter-spacing: .09em; text-transform: uppercase; color: var(--faint);
+}
+.strip {
+  display: flex; gap: 10px; overflow-x: auto; padding: 2px 2px 14px; margin: -2px -2px 0; scroll-snap-type: x proximity;
+  scrollbar-width: none; mask-image: linear-gradient(90deg, #000 calc(100% - 48px), transparent);
+}
+.strip::-webkit-scrollbar { display: none; }
+.next {
+  flex: 0 0 236px; scroll-snap-align: start; text-align: left; border: 0; cursor: pointer; border-radius: 22px;
+  padding: 14px 16px 16px; background: var(--surface); box-shadow: var(--lift), inset 0 0 0 1px var(--line);
+  display: flex; flex-direction: column; gap: 8px; position: relative; overflow: hidden; transition: transform .25s cubic-bezier(.2,1.4,.4,1);
+}
+.next::before { content: ""; position: absolute; inset: 0 0 auto 0; height: 3px; background: var(--g); }
+.next:hover { transform: translateY(-2px); }
+.next .from { display: flex; align-items: center; gap: 7px; font-size: 11.5px; color: var(--muted); font-weight: 500; }
+.next .from i { width: 7px; height: 7px; border-radius: 2px; background: var(--c); }
+.next .what {
+  font: 600 14px/1.35 var(--display); font-variation-settings: "wdth" 100, "opsz" 16;
+  display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;
+}
+
+/* ---------- sections ---------- */
+section.sec {
+  background: var(--surface); border-radius: var(--r-card); box-shadow: var(--lift), inset 0 0 0 1px var(--line);
+  scroll-margin-top: 96px;
+}
+.shead {
+  display: grid; grid-template-columns: 16px 44px minmax(0,1fr) auto 28px; align-items: center; gap: 12px; width: 100%;
+  border: 0; background: none; text-align: left; cursor: pointer; padding: 16px 18px 16px 8px; border-radius: var(--r-card);
+}
+.shead:hover .stitle { color: var(--c); }
+.badge {
+  width: 44px; height: 44px; border-radius: 15px; background: var(--g); display: grid; place-items: center;
+  color: #fff; font: 800 17px/1 var(--display); font-variation-settings: "wdth" 120; font-variant-numeric: tabular-nums;
+  box-shadow: 0 8px 20px -10px var(--c); text-shadow: 0 1px 2px rgba(0,0,0,.25);
+}
+.stitle {
+  margin: 0; font: 720 21px/1.15 var(--display); font-variation-settings: "wdth" 112, "opsz" 32; letter-spacing: -.01em;
+  text-wrap: balance; transition: color .2s;
+}
+.sdesc { display: block; margin-top: 3px; font-size: 13px; color: var(--muted); }
+.sdesc code { font-size: 12px; }
+.matches { font-size: 12px; color: var(--muted); white-space: nowrap; }
+.chev {
+  width: 28px; height: 28px; border-radius: 50%; display: grid; place-items: center; color: var(--muted);
+  background: var(--surface-2); transition: transform .35s cubic-bezier(.2,1.3,.4,1), background .2s;
+}
+section.collapsed .chev { transform: rotate(-90deg); }
+.sbody { display: grid; grid-template-rows: 1fr; transition: grid-template-rows .32s cubic-bezier(.2,.9,.3,1); }
+section.collapsed .sbody { grid-template-rows: 0fr; }
+.sinner { overflow: hidden; min-height: 0; }
+ol.items { list-style: none; margin: 0; padding: 0 10px 12px; display: flex; flex-direction: column; gap: 2px; }
+
+/* ---------- items ---------- */
+li.item {
+  display: grid; grid-template-columns: 22px 36px minmax(0,1fr) 36px; column-gap: 8px; row-gap: 6px; align-items: start;
+  padding: 11px 8px 11px 6px; border-radius: var(--r-item); position: relative;
+  transition: background .15s;
+}
+li.item:hover, li.item:focus-within { background: var(--surface-2); }
+li.item:focus-visible { outline-offset: -2px; }
+.grip {
+  height: 30px; display: grid; place-items: center; color: var(--faint); cursor: grab; border-radius: 8px;
+  opacity: 0; transition: opacity .15s;
+}
+li.item:hover .grip, li.item:focus-within .grip { opacity: 1; }
+.grip:hover { color: var(--text); }
+.grip.off { cursor: default; }
+.rank {
+  width: 30px; height: 30px; display: grid; place-items: center; font: 700 13px/1 var(--display);
+  font-variation-settings: "wdth" 110; font-variant-numeric: tabular-nums; color: var(--muted); position: relative;
+}
+.rank svg { position: absolute; inset: 0; }
+.rank span { position: relative; }
+.rank.r1 { color: #fff; text-shadow: 0 1px 2px rgba(0,0,0,.3); }
+.rank.r2, .rank.r3 { color: var(--c); }
+.rank.r2::before, .rank.r3::before {
+  content: ""; position: absolute; inset: 1px; border-radius: 50%; background: color-mix(in srgb, var(--c) 16%, transparent);
+}
+.rank.r3::before { background: color-mix(in srgb, var(--c) 9%, transparent); }
+.text { min-width: 0; overflow-wrap: anywhere; padding-top: 4px; color: color-mix(in srgb, var(--text) 86%, var(--muted)); }
+.text strong { font-weight: 650; color: var(--text); }
+code {
+  font: 500 12.5px/1.3 var(--mono); background: var(--code-bg); padding: 2px 6px; border-radius: 6px; white-space: break-spaces;
+}
+.act {
+  width: 36px; height: 36px; border: 0; border-radius: 50%; background: none; color: var(--muted); cursor: pointer;
+  display: grid; place-items: center; opacity: 0; transition: opacity .15s, background .15s, color .15s;
+}
+li.item:hover .act, li.item:focus-within .act { opacity: 1; }
+.act:hover { background: var(--primary-soft); color: var(--primary); }
+.note {
+  grid-column: 3 / 5; display: flex; gap: 10px; align-items: flex-start; cursor: text; text-align: left; border: 0; width: 100%;
+  background: var(--note-bg); color: var(--note-text); border-radius: 14px 14px 14px 4px; padding: 9px 14px; font-size: 13.5px;
+}
+.note svg { flex: none; margin-top: 3px; color: var(--note); }
+.note-edit { grid-column: 3 / 5; display: flex; flex-direction: column; gap: 6px; }
+.note-edit textarea {
+  width: 100%; resize: vertical; min-height: 44px; font: 400 14px/1.5 var(--body); padding: 10px 14px; border-radius: 14px;
+  border: 0; background: var(--surface); color: var(--text); outline: none; box-shadow: inset 0 0 0 2px var(--note);
+}
+.note-edit .hint { font-size: 11.5px; color: var(--faint); padding-left: 4px; }
+mark { background: var(--mark); color: inherit; border-radius: 4px; padding: 0 2px; }
+
+/* drag states */
+.sortable-ghost { background: var(--primary-soft) !important; }
+.sortable-ghost > * { opacity: 0; }
+.sortable-fallback {
+  background: var(--surface-3) !important; box-shadow: 0 24px 48px -12px rgba(0,0,0,.55), inset 0 0 0 1px var(--line) !important;
+  border-radius: var(--r-item); opacity: 1 !important; transform-origin: 30px 50%;
+}
+.sortable-fallback .grip { opacity: 1; color: var(--primary); }
+body.dragging, body.dragging * { cursor: grabbing !important; user-select: none; }
+body.dragging .act { opacity: 0 !important; }
+
+.banner { background: var(--surface); border-radius: 18px; padding: 12px 16px; font-size: 13.5px; box-shadow: inset 0 0 0 1px var(--danger); color: var(--danger); }
+.empty { text-align: center; color: var(--muted); padding: 64px 16px; font-size: 15px; }
+.toast {
+  position: fixed; left: 50%; bottom: calc(24px + env(safe-area-inset-bottom, 0px)); z-index: 30;
+  transform: translate(-50%, 16px) scale(.96); opacity: 0;
+  background: var(--text); color: var(--bg); padding: 12px 18px; border-radius: 16px; font-size: 13.5px; font-weight: 500;
+  transition: opacity .2s, transform .35s cubic-bezier(.2,1.4,.4,1); pointer-events: none; max-width: min(520px, calc(100vw - 32px));
+  box-shadow: 0 12px 32px -8px rgba(0,0,0,.4);
+}
+.toast.show { opacity: 1; transform: translate(-50%, 0) scale(1); }
+.foot { color: var(--faint); font-size: 12.5px; padding: 8px 4px; display: flex; flex-wrap: wrap; gap: 6px 18px; }
+.foot kbd { font: 500 11px var(--mono); border: 1px solid var(--line); border-radius: 6px; padding: 1px 6px; background: var(--surface); color: var(--muted); }
+
+@media (max-width: 920px) {
+  .page { grid-template-columns: minmax(0, 1fr); }
+  .rail { display: none; }
+}
+@media (max-width: 560px) {
+  .bar { padding: 12px 16px; } .page { padding-inline: 16px; }
+  .search { flex: 1 1 100%; order: 3; }
+  .shead { grid-template-columns: 14px 36px minmax(0,1fr) 28px; gap: 10px; padding: 14px 14px 14px 6px; }
+  .sgrip { opacity: .6; }
+  .chat { padding: 16px 14px 12px; }
+  .badge { width: 36px; height: 36px; border-radius: 12px; font-size: 15px; }
+  .matches { display: none; }
+  .stitle { font-size: 18px; }
+  li.item { grid-template-columns: 14px 30px minmax(0,1fr) 36px; column-gap: 8px; }
+  .grip { opacity: .6; height: 30px; touch-action: none; }
+  .act { opacity: 1; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { transition-duration: 0s !important; animation: none !important; }
+}
+</style>
+<header>
+  <div class="bar">
+    <div class="brand">
+      <img class="appicon" src="data:image/png;base64,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" width="42" height="42" alt="">
+      <div><h1>Cometfly TODO</h1><div class="sub" id="summary">Reading TODO.md…</div></div>
+    </div>
+    <label class="search">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+      <input id="q" type="search" placeholder="Search items and notes" autocomplete="off" spellcheck="false" aria-label="Search">
+      <kbd>/</kbd>
+    </label>
+    <span class="status" title="Watching TODO.md for changes from sessions"><span class="pulse" id="pulse"></span><span id="statustext">Live</span></span>
+  </div>
+</header>
+
+<div class="page">
+  <nav class="rail" aria-label="Sections">
+    <div class="rail-label">Sections</div>
+    <div id="rail"></div>
+    <div class="rail-tools">
+      <button class="chip" id="expand">Expand all</button>
+      <button class="chip" id="collapse">Collapse all</button>
+    </div>
+  </nav>
+  <main class="content">
+    <div id="banner"></div>
+    <section class="chat" aria-labelledby="chat-title">
+      <div class="chat-head">
+        <h2 id="chat-title">Chat</h2><span class="chat-count" id="chatcount"></span>
+        <p>Notes for any new session, not tied to a to-do. A session brings them up and asks; it won't act on one by itself.</p>
+      </div>
+      <div class="bubbles" id="bubbles"></div>
+      <form class="composer" id="composer">
+        <textarea id="chatbox" rows="1" placeholder="Write a note for the next session" aria-label="Note for the next session"></textarea>
+        <button class="send" type="submit" aria-label="Send">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </button>
+      </form>
+    </section>
+    <div class="upnext" id="upnext"></div>
+    <div id="sections" style="display:flex;flex-direction:column;gap:16px"></div>
+    <div class="foot">
+      <span>Drag the handle to set priority; top is first</span>
+      <span><kbd>Alt</kbd> <kbd>↑</kbd> <kbd>↓</kbd> move the selected item</span>
+      <span><kbd>N</kbd> adds a note</span>
+      <span>Changes save straight into TODO.md</span>
+    </div>
+  </main>
+</div>
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+"use strict";
+/* Section colours: the app's ArtGradients (magenta, teal, amber) first, then more in the same spirit. */
+const PALETTE = [
+  ["#e04fd8", "#5b2a86"], ["#3be3c6", "#11606a"], ["#f2b33d", "#7a4a0c"], ["#ff7a6b", "#8a2a3c"], ["#6cb8ff", "#1d3f8a"],
+  ["#a6d95b", "#2f6a1d"], ["#b79cff", "#4a2f9a"], ["#ff8fc2", "#8a1f5a"], ["#5fd7ff", "#0f5470"], ["#c7a37a", "#5a4026"]
+];
+const NOTE_RE = /^\s+>\s*\*\*Joe:\*\*\s?(.*)$/;
+const ICON = {
+  grip: '<svg width="12" height="18" viewBox="0 0 12 18" fill="currentColor"><circle cx="3" cy="3" r="1.6"/><circle cx="9" cy="3" r="1.6"/><circle cx="3" cy="9" r="1.6"/><circle cx="9" cy="9" r="1.6"/><circle cx="3" cy="15" r="1.6"/><circle cx="9" cy="15" r="1.6"/></svg>',
+  chev: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>',
+  note: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3h11A2.5 2.5 0 0 1 20 5.5v8a2.5 2.5 0 0 1-2.5 2.5H10l-4.5 4v-4h0A1.5 1.5 0 0 1 4 14.5z"/><path d="M8.5 8.5h7M8.5 11.5h4"/></svg>',
+  quote: '<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3h11A2.5 2.5 0 0 1 20 5.5v8a2.5 2.5 0 0 1-2.5 2.5H10l-4.5 4v-4A1.5 1.5 0 0 1 4 14.5z"/></svg>'
+};
+/* The app's turning "cookie" shape, drawn for the #1 rank. */
+const COOKIE = (() => {
+  const pts = [], R = 14, N = 9;
+  for (let k = 0; k <= 180; k++) {
+    const t = k / 180 * Math.PI * 2, r = R * (1 + 0.075 * Math.cos(N * t));
+    pts.push((15 + r * Math.cos(t)).toFixed(2) + "," + (15 + r * Math.sin(t)).toFixed(2));
+  }
+  return "M" + pts.join("L") + "Z";
+})();
+
+let doc = null, hash = null, editable = true;
+let busy = false, pendingReload = null, online = true, saving = false;
+const $ = s => document.querySelector(s);
+const store = {
+  get(k, d) { try { const v = localStorage.getItem(k); return v === null ? d : JSON.parse(v); } catch { return d; } },
+  set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch {} }
+};
+let collapsed = store.get("collapsed", {});
+
+/* ---------- TODO.md <-> model; serialise(parse(t)) must equal t, or the board goes read-only ---------- */
+function parse(text) {
+  const eol = text.includes("\r\n") ? "\r\n" : "\n";
+  const d = { eol, pre: [], sections: [] };
+  let sec = null;
+  for (const line of text.split(/\r?\n/)) {
+    if (line.startsWith("## ")) {
+      sec = { title: line.slice(3).trim(), head: [line], items: [], tail: [] };
+      d.sections.push(sec);
+    } else if (!sec) d.pre.push(line);
+    else if (/^- /.test(line)) {
+      if (sec.items.length && sec.tail.length) sec.items[sec.items.length - 1].lines.push(...sec.tail);
+      sec.tail = [];
+      sec.items.push({ lines: [line] });
+    } else if (sec.items.length && !sec.tail.length && /^\s+\S/.test(line)) sec.items[sec.items.length - 1].lines.push(line);
+    else if (sec.items.length) sec.tail.push(line);
+    else sec.head.push(line);
+  }
+  return d;
+}
+function serialise(d) {
+  const out = [...d.pre];
+  for (const s of d.sections) { out.push(...s.head); for (const it of s.items) out.push(...it.lines); out.push(...s.tail); }
+  return out.join(d.eol);
+}
+const itemText = it => it.lines.filter(l => !NOTE_RE.test(l)).map(l => l.trim()).join(" ").replace(/^-\s+/, "");
+function itemNote(it) { const l = it.lines.find(l => NOTE_RE.test(l)); return l ? l.match(NOTE_RE)[1] : null; }
+function setNote(it, note) {
+  const i = it.lines.findIndex(l => NOTE_RE.test(l));
+  const clean = (note || "").replace(/\s*\n\s*/g, " ").trim();
+  if (!clean) { if (i >= 0) it.lines.splice(i, 1); return; }
+  const line = "  > **Joe:** " + clean;
+  if (i >= 0) it.lines[i] = line; else it.lines.push(line);
+}
+
+/* ---------- inline markdown ---------- */
+const esc = s => s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+function inline(s) {
+  return s.split("`").map((part, i) => i % 2
+    ? "<code>" + esc(part) + "</code>"
+    : esc(part).replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>").replace(/(^|[^*\w])\*(?!\s)(.+?)\*(?!\w)/g, "$1<em>$2</em>")
+  ).join("");
+}
+const plain = s => s.replace(/[`*]/g, "");
+function highlight(root, q) {
+  if (!q) return;
+  const re = new RegExp(q.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"), "gi");
+  const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
+  const nodes = []; while (walker.nextNode()) nodes.push(walker.currentNode);
+  for (const n of nodes) {
+    re.lastIndex = 0;
+    if (!re.test(n.nodeValue)) continue;
+    const frag = document.createDocumentFragment(); let last = 0; re.lastIndex = 0;
+    n.nodeValue.replace(re, (m, off) => {
+      frag.append(n.nodeValue.slice(last, off));
+      const mk = document.createElement("mark"); mk.textContent = m; frag.append(mk); last = off + m.length;
+    });
+    frag.append(n.nodeValue.slice(last)); n.replaceWith(frag);
+  }
+}
+/* A section keeps its colour when it moves: each title is given the next free colour the first time it is seen. */
+let colourOf = store.get("colourOf", {});
+function colours(si) {
+  const title = doc.sections[si].title;
+  if (!(title in colourOf)) {
+    const used = new Set(Object.values(colourOf));
+    let k = 0; while (used.has(k) && k < PALETTE.length) k++;
+    colourOf[title] = k % PALETTE.length; store.set("colourOf", colourOf);
+  }
+  const [c, d] = PALETTE[colourOf[title]];
+  return { c, d, g: `linear-gradient(135deg, ${c}, ${d})` };
+}
+
+/* ---------- Joe's chat: the "Notes from Joe" section, notes for sessions that are not to-dos ---------- */
+const CHAT = "Notes from Joe";
+const CHAT_DESC = "Not to-dos. A session brings each one up at its start and asks whether to work on it; it doesn't act on one " +
+  "unasked, and only Joe removes them (in his TODO board).";
+const isChat = s => s.title === CHAT;
+function chatSection(d, create) {
+  let s = d.sections.find(isChat);
+  if (!s && create) {
+    s = { title: CHAT, head: ["## " + CHAT, "", CHAT_DESC, ""], items: [], tail: [""] };
+    d.sections.unshift(s);
+  }
+  return s;
+}
+function stampNow() {
+  const t = new Date();
+  return t.toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" }) + ", " +
+    t.toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit" });
+}
+function addChat(d, stamp, text) {
+  const line = "- " + stamp + ": " + text.replace(/\s*\n\s*/g, " ").trim();
+  const s = chatSection(d, true), it = { lines: [line] };
+  if (!s.items.some(x => itemKey(x) === itemKey(it))) s.items.push(it);
+  regap(d);
+  return itemKey(it);
+}
+function removeChat(d, key) {
+  const s = chatSection(d, false);
+  if (s) { s.items = s.items.filter(x => itemKey(x) !== key); regap(d); }
+}
+function renderChat() {
+  const s = chatSection(doc, false), box = $("#bubbles");
+  const items = s ? s.items : [];
+  $("#chatcount").textContent = items.length ? items.length + (items.length > 1 ? " notes" : " note") : "";
+  if (!items.length) { box.innerHTML = `<p class="chat-empty">Nothing yet. Anything you write here, the next session mentions and asks you about.</p>`; return; }
+  box.innerHTML = "";
+  for (const it of items) {
+    const t = itemText(it), m = t.match(/^(\d{1,2} \w{3} \d{4}, \d{2}:\d{2}): ([\s\S]*)$/);
+    const b = document.createElement("div");
+    b.className = "bubble";
+    b.innerHTML = `<div class="btext">${inline(m ? m[2] : t)}</div>
+      <div class="bmeta"><span>${m ? esc(m[1]) : ""}</span>${editable ? `<button class="bdel">Remove</button>` : ""}</div>`;
+    const del = b.querySelector(".bdel");
+    if (del) del.onclick = () => {
+      if (!del.classList.contains("sure")) {
+        del.classList.add("sure"); del.textContent = "Remove it?";
+        setTimeout(() => { del.classList.remove("sure"); del.textContent = "Remove"; }, 3000);
+        return;
+      }
+      const key = itemKey(it);
+      removeChat(doc, key); render();
+      if (LOCAL) save("Note removed"); else writePending("chatdel-" + idFor(key), { kind: "chat-del", key, at: Date.now() }, "Note removed");
+    };
+    box.appendChild(b);
+  }
+}
+function sendChat() {
+  const ta = $("#chatbox"), text = ta.value.trim();
+  if (!text || !editable) return;
+  const stamp = stampNow(), key = addChat(doc, stamp, text);
+  ta.value = ""; ta.style.height = "";
+  render();
+  if (LOCAL) save("Sent: the next session will bring it up");
+  else writePending("chat-" + idFor(key), { kind: "chat-add", stamp, text, at: Date.now() }, "Sent");
+}
+
+/* ---------- moving whole sections; Joe's chat stays where it is ---------- */
+function regap(d) {
+  // A section's trailing blank lines sit in its tail (or its head, with no items) and move with it, so lay them out
+  // again: one blank line between sections, and the file's final newline kept as it was.
+  const trailing = s => s.items.length ? s.tail : s.head;
+  const last = trailing(d.sections[d.sections.length - 1]);
+  const endsWithNewline = last.length > 0 && last[last.length - 1] === "";
+  d.sections.forEach(s => { if (!s.items.length && s.tail.length) { s.head.push(...s.tail); s.tail = []; } });
+  d.sections.forEach((s, i) => {
+    const a = trailing(s);
+    while (a.length && a[a.length - 1] === "") a.pop();
+    if (i < d.sections.length - 1 || endsWithNewline) a.push("");
+  });
+}
+
+/* ---------- new to-dos from Joe: added at the bottom of their section, for him to drag up ---------- */
+function newItemLine(text, stamp) {
+  return "- " + text.replace(/\s*\n\s*/g, " ").trim() + ` *(Joe, ${stamp.split(",")[0]})*`;
+}
+function addItem(d, section, line) {
+  const s = d.sections.find(x => x.title === section);
+  if (!s) return false;
+  const it = { lines: [line] };
+  if (!s.items.some(x => itemKey(x) === itemKey(it))) { s.items.push(it); regap(d); }
+  return true;
+}
+function sendItem(si, input) {
+  const text = input.value.trim();
+  if (!text || !editable) return;
+  const s = doc.sections[si], line = newItemLine(text, stampNow());
+  addItem(doc, s.title, line);
+  render();
+  const msg = `Added to ${plain(s.title)}`;
+  if (LOCAL) save(msg);
+  else writePending("add-" + idFor(line), { kind: "add", section: s.title, line, at: Date.now() }, msg);
+  const again = document.querySelector(`#s${si} .additem input`); if (again) again.focus();
+}
+function orderSections(d, titles) {
+  const pos = new Map(titles.map((t, i) => [t, i]));
+  const known = d.sections.filter(s => !isChat(s) && pos.has(s.title)).sort((a, b) => pos.get(a.title) - pos.get(b.title));
+  let j = 0;
+  d.sections = d.sections.map(s => !isChat(s) && pos.has(s.title) ? known[j++] : s);
+  regap(d);
+}
+function moveSection(from, to) {
+  const titles = doc.sections.filter(s => !isChat(s)).map(s => s.title);
+  const [t] = titles.splice(from, 1); titles.splice(to, 0, t);
+  orderSections(doc, titles);
+  render();
+  const msg = `Moved ${plain(t)} to section #${to + 1}`;
+  if (LOCAL) save(msg); else writePending("sections", { kind: "sections", keys: titles, at: Date.now() }, msg);
+}
+
+/* ---------- render ---------- */
+function render() {
+  const q = $("#q").value.trim(), ql = q.toLowerCase();
+  const scroll = window.scrollY;
+  const root = $("#sections"); root.innerHTML = "";
+  const rail = $("#rail"); rail.innerHTML = "";
+  let total = 0, shown = 0;
+
+  doc.sections.forEach((s, si) => {
+    if (isChat(s)) return;
+    total += s.items.length;
+    const { c, g } = colours(si);
+    const matches = s.items.map((it, i) => ({ it, i })).filter(({ it }) => !ql ||
+      plain(itemText(it)).toLowerCase().includes(ql) || (itemNote(it) || "").toLowerCase().includes(ql) || s.title.toLowerCase().includes(ql));
+    shown += matches.length;
+
+    const rb = document.createElement("button");
+    rb.innerHTML = `<span class="dot" style="background:${g}"></span><span>${inline(s.title)}</span><span class="n">${ql ? matches.length : s.items.length}</span>`;
+    if (ql && !matches.length) rb.classList.add("dim");
+    rb.onclick = () => openSection(si);
+    rail.appendChild(rb);
+    if (ql && !matches.length) return;
+
+    const isCollapsed = !ql && !!collapsed[s.title];
+    const desc = s.head.slice(1).map(l => l.trim()).filter(Boolean).join(" ");
+    const sec = document.createElement("section");
+    sec.className = "sec" + (isCollapsed ? " collapsed" : "");
+    sec.id = "s" + si;
+    sec.style.setProperty("--c", c); sec.style.setProperty("--g", g);
+    sec.innerHTML = `
+      <button class="shead" aria-expanded="${!isCollapsed}">
+        <span class="sgrip ${editable && !ql ? "" : "off"}" title="Drag to move this section">${editable && !ql ? ICON.grip : ""}</span>
+        <span class="badge">${s.items.length}</span>
+        <span><h2 class="stitle">${inline(s.title)}</h2>${desc ? `<span class="sdesc">${inline(desc)}</span>` : ""}</span>
+        <span class="matches">${ql ? `${matches.length} of ${s.items.length} match` : ""}</span>
+        <span class="chev">${ICON.chev}</span>
+      </button>
+      <div class="sbody"><div class="sinner"><ol class="items"></ol></div></div>`;
+    const head = sec.querySelector(".shead");
+    head.onclick = () => {
+      if (ql) return;
+      const now = sec.classList.toggle("collapsed");
+      if (now) collapsed[s.title] = true; else delete collapsed[s.title];
+      head.setAttribute("aria-expanded", !now);
+      store.set("collapsed", collapsed);
+    };
+    const ol = sec.querySelector("ol");
+    for (const { it, i } of matches) ol.appendChild(renderItem(s, si, it, i, ql));
+    if (editable && !ql) {
+      const add = document.createElement("form");
+      add.className = "additem";
+      add.innerHTML = `<span class="plus">+</span><input id="add-${idFor(s.title)}" type="text" autocomplete="off" placeholder="Add a to-do to ${esc(plain(s.title))}" aria-label="Add a to-do to ${esc(plain(s.title))}"><button class="chip" type="submit">Add</button>`;
+      const input = add.querySelector("input");
+      add.onsubmit = e => { e.preventDefault(); sendItem(si, input); };
+      input.addEventListener("focus", () => { busy = true; });
+      input.addEventListener("blur", () => { busy = false; setTimeout(flushPending, 0); });
+      input.addEventListener("keydown", e => { if (e.key === "Escape") { input.value = ""; input.blur(); } });
+      sec.querySelector(".sinner").appendChild(add);
+      Sortable.create(ol, {
+        handle: ".grip", animation: 220, easing: "cubic-bezier(.2,1.2,.4,1)", forceFallback: true, fallbackTolerance: 3,
+        onStart: () => { busy = true; document.body.classList.add("dragging"); },
+        onEnd: e => {
+          document.body.classList.remove("dragging"); busy = false;
+          if (e.oldIndex !== e.newIndex) move(si, e.oldIndex, e.newIndex); else flushPending();
+        }
+      });
+    }
+    root.appendChild(sec);
+    if (q) highlight(ol, q);
+  });
+
+  const old = Sortable.get && Sortable.get(root); if (old) old.destroy();
+  if (editable && !ql) {
+    Sortable.create(root, {
+      handle: ".sgrip", draggable: ".sec", animation: 240, easing: "cubic-bezier(.2,1.2,.4,1)", forceFallback: true, fallbackTolerance: 3,
+      onStart: () => { busy = true; document.body.classList.add("dragging"); },
+      onEnd: e => {
+        document.body.classList.remove("dragging"); busy = false;
+        if (e.oldIndex !== e.newIndex) moveSection(e.oldIndex, e.newIndex); else flushPending();
+      }
+    });
+  }
+  renderUpNext(ql);
+  renderChat();
+  if (ql && !shown) root.innerHTML = `<div class="empty">Nothing matches “${esc(q)}”.</div>`;
+  const lists = doc.sections.filter(s => !isChat(s));
+  const notes = lists.reduce((n, s) => n + s.items.filter(itemNote).length, 0);
+  $("#summary").textContent = ql
+    ? `${shown} of ${total} items match`
+    : `${total} open items in ${lists.length} sections${notes ? ` · ${notes} note${notes > 1 ? "s" : ""}` : ""}`;
+  window.scrollTo(0, scroll);
+}
+
+function renderUpNext(ql) {
+  const box = $("#upnext");
+  if (ql) { box.innerHTML = ""; return; }
+  box.innerHTML = `<h2>Top of each section</h2><div class="strip"></div>`;
+  const strip = box.querySelector(".strip");
+  doc.sections.forEach((s, si) => {
+    if (!s.items.length || isChat(s)) return;
+    const { c, g } = colours(si);
+    const b = document.createElement("button");
+    b.className = "next"; b.style.setProperty("--c", c); b.style.setProperty("--g", g);
+    const t = itemText(s.items[0]), lead = (t.match(/^\*\*(.+?)\*\*/) || [])[1];
+    b.innerHTML = `<span class="from"><i></i>${inline(s.title)}</span><span class="what">${inline(lead || t)}</span>`;
+    b.title = plain(t);
+    b.onclick = () => openSection(si, 0);
+    strip.appendChild(b);
+  });
+}
+
+function openSection(si, item) {
+  const s = doc.sections[si];
+  if (collapsed[s.title]) { delete collapsed[s.title]; store.set("collapsed", collapsed); render(); }
+  const el = document.getElementById("s" + si);
+  if (!el) return;
+  el.scrollIntoView({ behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth", block: "start" });
+  if (item !== undefined) setTimeout(() => focusItem(si, item), 350);
+}
+
+function renderItem(s, si, it, i, ql) {
+  const li = document.createElement("li");
+  li.className = "item"; li.tabIndex = 0; li.dataset.si = si; li.dataset.i = i;
+  const rank = i + 1, note = itemNote(it), canDrag = editable && !ql;
+  const rankHtml = rank === 1
+    ? `<span class="rank r1"><svg viewBox="0 0 30 30"><path d="${COOKIE}" fill="url(#ck${si})"/><defs><linearGradient id="ck${si}" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="${colours(si).c}"/><stop offset="1" stop-color="${colours(si).d}"/></linearGradient></defs></svg><span>1</span></span>`
+    : `<span class="rank ${rank <= 3 ? "r" + rank : ""}"><span>${rank}</span></span>`;
+  li.innerHTML = `
+    <span class="grip ${canDrag ? "" : "off"}" title="${canDrag ? "Drag to reorder" : "Clear the search to reorder"}">${canDrag ? ICON.grip : ""}</span>
+    ${rankHtml}
+    <div class="text">${inline(itemText(it))}</div>
+    ${editable ? `<button class="act" title="${note ? "Edit note" : "Add a note"} (N)" aria-label="${note ? "Edit note" : "Add a note"}">${ICON.note}</button>` : "<span></span>"}
+    ${note ? `<button class="note" title="Edit note">${ICON.quote}<span>${inline(note)}</span></button>` : ""}`;
+  if (editable) {
+    const open = e => { e && e.stopPropagation(); editNote(li, si, i); };
+    li.querySelector(".act").onclick = open;
+    const n = li.querySelector(".note"); if (n) n.onclick = open;
+  }
+  li.addEventListener("keydown", e => {
+    if (e.target !== li || !editable) return;
+    if (e.altKey && (e.key === "ArrowUp" || e.key === "ArrowDown")) {
+      e.preventDefault();
+      const to = i + (e.key === "ArrowUp" ? -1 : 1);
+      if (!ql && to >= 0 && to < s.items.length) { move(si, i, to); focusItem(si, to); }
+    } else if (e.key.toLowerCase() === "n" && !e.ctrlKey && !e.metaKey && !e.altKey) { e.preventDefault(); editNote(li, si, i); }
+  });
+  return li;
+}
+function focusItem(si, i) { const el = document.querySelector(`li.item[data-si="${si}"][data-i="${i}"]`); if (el) el.focus({ preventScroll: false }); }
+
+function editNote(li, si, i) {
+  if (li.querySelector(".note-edit")) return;
+  busy = true;
+  const it = doc.sections[si].items[i];
+  const box = document.createElement("div");
+  box.className = "note-edit";
+  box.innerHTML = `<textarea id="note-${si}-${i}" rows="2" placeholder="A note for you and the sessions"></textarea><span class="hint">Enter saves · Esc cancels · empty removes the note</span>`;
+  const ta = box.querySelector("textarea");
+  ta.value = itemNote(it) || "";
+  const old = li.querySelector(".note"); if (old) old.hidden = true;
+  li.appendChild(box); ta.focus(); ta.setSelectionRange(ta.value.length, ta.value.length);
+  let done = false;
+  const finish = commit => {
+    if (done) return; done = true; busy = false;
+    if (commit && ta.value.trim() !== (itemNote(it) || "")) {
+      const had = !!itemNote(it);
+      setNote(it, ta.value); render(); persistNote(it, ta.value, ta.value.trim() ? "Note saved" : (had ? "Note removed" : "")); focusItem(si, i);
+    } else { box.remove(); if (old) old.hidden = false; flushPending(); li.focus(); }
+  };
+  ta.addEventListener("keydown", e => {
+    if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); finish(true); }
+    else if (e.key === "Escape") { e.preventDefault(); finish(false); }
+  });
+  ta.addEventListener("blur", () => finish(true));
+}
+
+
+function move(si, from, to) {
+  const items = doc.sections[si].items;
+  const [it] = items.splice(from, 1);
+  items.splice(to, 0, it);
+  render();
+  persistOrder(si, `Moved to #${to + 1} in ${plain(doc.sections[si].title)}`);
+}
+
+/* ---------- two homes: the PC board edits TODO.md through its little server; the phone copy (a Google Apps Script
+   web app, gas/) keeps changes as "pending" rows that a Milkdrop session folds into TODO.md when it syncs
+   (~/todo-board/SYNC.md). The claude.ai copy before it worked the same way through window.claude. ---------- */
+const LOCAL = /^(127\.0\.0\.1|localhost)$/.test(location.hostname);
+const GAS = typeof google !== "undefined" && !!(google.script && google.script.run);
+/* The installed copy (github.com/Hyphen-05/cometfly-todo, served by GitHub Pages) is this page too. It reaches the same
+   Apps Script over plain HTTPS, with the key that opening the page once as …/#k=<key> saved on the phone. */
+const SHELL = !LOCAL && !GAS && /\.github\.io$/.test(location.hostname);
+const BOARD_URL = "https://script.google.com/macros/s/AKfycbwZJwJQY5RRc0kMY2CGyDOVE-YTRV5L5Gvrx-IzY0hzQuHMPj-X3Qz7QrajswqpF9dSJQ/exec";
+let gasKey = "";
+async function shellCall(fn, ...args) {
+  if (fn === "boardState") {
+    const r = await fetch(BOARD_URL + "?api=pull&k=" + encodeURIComponent(gasKey), { cache: "no-store" });
+    const t = await r.text();
+    if (t === "Not found") throw new Error("key");
+    return t;
+  }
+  const [id, json] = args;
+  const r = await fetch(BOARD_URL, { method: "POST", body: JSON.stringify({ k: gasKey, op: "put", id, json }) });
+  const j = JSON.parse(await r.text());
+  if (!j.ok) throw new Error("not saved");
+}
+function gasCall(fn, ...args) {
+  if (SHELL) return shellCall(fn, ...args);
+  return new Promise((ok, fail) => google.script.run.withSuccessHandler(ok).withFailureHandler(fail)[fn](gasKey, ...args));
+}
+let remote = null, snap = null, pending = {};
+
+/* The same matching rule as sync.py: an item is known by its bold lead, else its first 80 characters. */
+function itemKey(it) { const t = itemText(it), m = t.match(/^\*\*(.+?)\*\*/); return (m ? m[1] : t.slice(0, 80)).trim(); }
+function idFor(s) { let h = 5381; for (const ch of s) h = ((h * 33) ^ ch.codePointAt(0)) >>> 0; return h.toString(36); }
+function applyPending(d, ops) {
+  for (const op of ops.slice().sort((a, b) => (a.at || 0) - (b.at || 0))) {
+    if (op.kind === "order") {
+      const sec = d.sections.find(s => s.title === op.section);
+      if (!sec) continue;
+      const pos = new Map(op.keys.map((k, i) => [k, i]));
+      const known = sec.items.filter(it => pos.has(itemKey(it))).sort((a, b) => pos.get(itemKey(a)) - pos.get(itemKey(b)));
+      let j = 0;
+      const next = sec.items.map(it => pos.has(itemKey(it)) ? known[j++] : it);
+      sec.items.splice(0, sec.items.length, ...next);
+    } else if (op.kind === "note") {
+      for (const s of d.sections) for (const it of s.items) if (itemKey(it) === op.key) setNote(it, op.note);
+    } else if (op.kind === "sections") orderSections(d, op.keys);
+    else if (op.kind === "add") addItem(d, op.section, op.line);
+    else if (op.kind === "chat-add") addChat(d, op.stamp, op.text);
+    else if (op.kind === "chat-del") removeChat(d, op.key);
+  }
+}
+
+function persistOrder(si, msg) {
+  if (LOCAL) return save(msg);
+  const s = doc.sections[si];
+  writePending("order-" + idFor(s.title), { kind: "order", section: s.title, keys: s.items.map(itemKey), at: Date.now() }, msg);
+}
+function persistNote(it, note, msg) {
+  if (LOCAL) return save(msg && msg + " to TODO.md");
+  const key = itemKey(it);
+  writePending("note-" + idFor(key), { kind: "note", key, note: note.replace(/\s*\n\s*/g, " ").trim(), at: Date.now() }, msg);
+}
+async function writePending(id, data, msg) {
+  saving = true; setStatus();
+  try {
+    if (GAS || SHELL) { await gasCall("putPending", id, JSON.stringify(data)); pending[id] = data; }
+    else await remote.collection("pending").doc(id).set(data);
+    toast(msg ? msg + ". It reaches TODO.md at the next sync." : ""); }
+  catch (e) {
+    toast(e && e.code === "invalid_argument" ? "This copy is read-only for you, so that wasn't saved." : "Couldn't save that. Check the connection and try again.");
+  }
+  saving = false; setStatus();
+}
+
+/* ---------- status ---------- */
+function ago(t) {
+  const m = Math.round((Date.now() - t) / 60000);
+  if (m < 1) return "just now"; if (m < 60) return m + " min ago";
+  const h = Math.round(m / 60); if (h < 36) return h + " h ago";
+  return Math.round(h / 24) + " days ago";
+}
+function setStatus() {
+  const waiting = Object.keys(pending).length;
+  $("#pulse").className = "pulse" + (saving ? " saving" : online ? "" : " off");
+  if (LOCAL) {
+    $("#statustext").textContent = saving ? "Saving" : online ? "Live" : "Offline";
+    $(".status").title = online ? "Watching TODO.md for changes from sessions" : "The board's server stopped. Open the board again from the desktop shortcut.";
+  } else {
+    $("#statustext").textContent = saving ? "Saving" : !online ? "Offline" : waiting ? `${waiting} to sync` : "Synced";
+    $(".status").title = (snap ? "List from TODO.md as of " + new Date(snap.syncedAt).toLocaleString() + ". " : "") +
+      (waiting ? `${waiting} change${waiting > 1 ? "s" : ""} from here reach TODO.md when a Milkdrop session next syncs.` : "Nothing waiting to sync.");
+  }
+}
+function banner(html) { $("#banner").innerHTML = html ? `<div class="banner">${html}</div>` : ""; }
+function toast(msg) {
+  if (!msg) return;
+  const t = $("#toast"); t.textContent = msg; t.classList.add("show");
+  clearTimeout(toast.timer); toast.timer = setTimeout(() => t.classList.remove("show"), 3200);
+}
+
+/* ---------- PC: the local server ---------- */
+function load(text, h) {
+  const d = parse(text);
+  editable = serialise(d) === text;
+  doc = d; hash = h;
+  banner(editable ? (window.Sortable.version ? "" : "The drag library didn't load (no internet?). Alt+↑ and Alt+↓ still reorder.")
+    : "TODO.md has a layout this board can't write back exactly, so it's read-only until that changes. Nothing will be saved.");
+  render();
+}
+function flushPending() {
+  if (!pendingReload || busy) return;
+  const p = pendingReload; pendingReload = null;
+  if (LOCAL) load(p.text, p.hash); else rebuild();
+}
+async function save(okMsg) {
+  if (!editable) return;
+  saving = true; setStatus();
+  try {
+    const r = await fetch("/save", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ base: hash, text: serialise(doc) }) });
+    const j = await r.json();
+    if (r.status === 200) { hash = j.hash; toast(okMsg); }
+    else if (r.status === 409) { load(j.text, j.hash); toast("A session changed TODO.md at the same moment, so your change wasn't saved. This is the latest; try again."); }
+    else toast("Couldn't save: " + (j.error || r.status));
+    online = true;
+  } catch { online = false; toast("The board's server isn't running, so nothing was saved. Reopen it from the desktop shortcut."); }
+  saving = false; setStatus();
+}
+async function poll() {
+  try {
+    const r = await fetch("/todo", { cache: "no-store" });
+    const j = await r.json();
+    online = true;
+    if (j.error) banner("Can't read TODO.md: " + esc(j.error));
+    else if (j.hash !== hash && !saving) {
+      if (busy) pendingReload = j;
+      else { const first = hash === null; load(j.text, j.hash); if (!first) toast("A session just updated TODO.md"); }
+    }
+  } catch { online = false; }
+  setStatus();
+}
+
+/* ---------- phone: the claude.ai copy ---------- */
+function rebuild() {
+  if (busy) { pendingReload = true; return; }
+  if (!snap) {
+    doc = { eol: "\n", pre: [], sections: [] };
+    $("#sections").innerHTML = `<div class="empty">The list arrives here the next time a Milkdrop session syncs it.</div>`;
+    $("#upnext").innerHTML = ""; $("#rail").innerHTML = ""; $("#summary").textContent = "Waiting for the first sync";
+    setStatus(); return;
+  }
+  const d = parse(snap.text);
+  applyPending(d, Object.values(pending));
+  doc = d; editable = true;
+  banner(window.Sortable.version ? "" : "The drag library didn't load. Alt+↑ and Alt+↓ still reorder.");
+  render();
+  $("#summary").textContent += " · synced " + ago(snap.syncedAt);
+  setStatus();
+}
+async function pollGas() {
+  if (busy || saving) return;
+  try {
+    const j = JSON.parse(await gasCall("boardState"));
+    snap = j.snap; pending = j.pending; online = true;
+  } catch { online = false; }
+  rebuild();
+}
+function startGas() {
+  $("#summary").textContent = "Connecting…";
+  const go = k => {
+    gasKey = k || "";
+    if (!gasKey) {
+      $("#summary").textContent = "No key on this device";
+      $("#sections").innerHTML = `<div class="empty">Open the full board link you were given once, in this browser. After that the app opens the board by itself.</div>`;
+      return;
+    }
+    pollGas();
+    setInterval(() => { if (document.visibilityState === "visible") pollGas(); }, 20000);
+    document.addEventListener("visibilitychange", () => { if (document.visibilityState === "visible") pollGas(); });
+  };
+  if (!SHELL) return google.script.url.getLocation(loc => go(loc.parameter && loc.parameter.k));
+  const m = location.hash.match(/[#&]k=([A-Za-z0-9_-]+)/);
+  if (m) { try { localStorage.setItem("board-key", m[1]); } catch {} history.replaceState(null, "", location.pathname); }
+  let k = m && m[1];
+  if (!k) try { k = localStorage.getItem("board-key"); } catch {}
+  go(k);
+}
+async function startRemote() {
+  if (GAS || SHELL) return startGas();
+  $("#summary").textContent = "Connecting…";
+  remote = window.claude && window.claude.use ? await window.claude.use("db") : null;
+  if (!remote) {
+    online = false; setStatus();
+    $("#summary").textContent = "Not connected";
+    $("#sections").innerHTML = `<div class="empty">Open this page signed in to claude.ai to see the list.</div>`;
+    return;
+  }
+  const fail = () => { online = false; setStatus(); };
+  remote.doc("board/snapshot").onSnapshot(s => { snap = s.exists ? s.data() : null; online = true; rebuild(); }, fail);
+  remote.collection("pending").onSnapshot(q => { pending = {}; q.docs.forEach(x => pending[x.id] = x.data()); online = true; rebuild(); }, fail);
+  setInterval(() => { if (snap && !busy) { $("#summary").textContent = $("#summary").textContent.replace(/synced .*$/, "synced " + ago(snap.syncedAt)); } }, 60000);
+}
+
+/* ---------- wiring ---------- */
+window.Sortable = window.Sortable || { create() {} };
+$("#q").addEventListener("input", () => { if (doc) { render(); if (!LOCAL && snap) $("#summary").textContent += " · synced " + ago(snap.syncedAt); } });
+$("#q").addEventListener("keydown", e => { if (e.key === "Escape") { e.target.value = ""; render(); e.target.blur(); } });
+document.addEventListener("keydown", e => {
+  const tag = document.activeElement.tagName;
+  if (e.key === "/" && tag !== "TEXTAREA" && tag !== "INPUT") { e.preventDefault(); $("#q").focus(); }
+});
+const chatbox = $("#chatbox");
+const fitChat = () => { chatbox.style.height = ""; chatbox.style.height = Math.min(chatbox.scrollHeight, 160) + "px"; };
+$("#composer").addEventListener("submit", e => { e.preventDefault(); sendChat(); });
+chatbox.addEventListener("input", fitChat);
+chatbox.addEventListener("keydown", e => { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); sendChat(); } });
+chatbox.addEventListener("focus", () => { busy = true; });
+chatbox.addEventListener("blur", () => { busy = false; setTimeout(flushPending, 0); });
+$("#expand").onclick =() => { collapsed = {}; store.set("collapsed", collapsed); render(); };
+$("#collapse").onclick = () => { collapsed = {}; doc.sections.forEach(s => collapsed[s.title] = true); store.set("collapsed", collapsed); render(); };
+if (LOCAL) { poll(); setInterval(poll, 2000); } else startRemote();
+</script>
+
+</body>
+</html>
