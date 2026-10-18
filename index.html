@@ -496,8 +496,8 @@ function colours(si) {
 
 /* ---------- Joe's chat: the "Notes from Joe" section, notes for sessions that are not to-dos ---------- */
 const CHAT = "Notes from Joe";
-const CHAT_DESC = "Not to-dos. A session brings each one up at its start and asks whether to work on it; it doesn't act on one " +
-  "unasked, and only Joe removes them (in his TODO board).";
+const CHAT_DESC = "Not to-dos. A session brings each one up at its start and asks whether to work on it, and doesn't act on one " +
+  "unasked. Once a note is handled (done, or now a to-do), the session removes it.";
 const isChat = s => s.title === CHAT;
 function chatSection(d, create) {
   let s = d.sections.find(isChat);
