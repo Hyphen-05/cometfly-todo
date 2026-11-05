@@ -294,6 +294,27 @@ li.item:hover .act, li.item:focus-within .act { opacity: 1; }
 .note-edit .hint { font-size: 11.5px; color: var(--faint); padding-left: 4px; }
 mark { background: var(--mark); color: inherit; border-radius: 4px; padding: 0 2px; }
 
+/* titles only until opened; [checked] and [due] tags as badges */
+.lead {
+  all: unset; cursor: pointer; display: inline; color: var(--text); font-weight: 650; border-radius: 6px;
+}
+.lead:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }
+.lead .more-hint { font-weight: 500; color: var(--faint); font-size: 12px; margin-left: 6px; white-space: nowrap; }
+.rest { display: none; margin-top: 6px; }
+li.item.open .rest { display: block; }
+li.item.open .more-hint { display: none; }
+.tags { display: inline-flex; flex-wrap: wrap; gap: 6px; margin-left: 8px; vertical-align: 1px; }
+.tag {
+  font: 600 11px/1 var(--body); padding: 4px 8px; border-radius: 999px; white-space: nowrap;
+  background: var(--surface-3); color: var(--muted);
+}
+.tag.due-now { background: color-mix(in srgb, var(--danger) 22%, transparent); color: var(--danger); }
+.tag.stale { background: color-mix(in srgb, var(--note) 20%, transparent); color: var(--note-text); }
+li.item.is-stale .text { opacity: .55; }
+li.item.is-stale:hover .text, li.item.is-stale:focus-within .text { opacity: 1; }
+.next.due { box-shadow: var(--lift), inset 0 0 0 2px var(--danger); }
+.next.due .from { color: var(--danger); }
+
 /* drag states */
 .sortable-ghost { background: var(--primary-soft) !important; }
 .sortable-ghost > * { opacity: 0; }
@@ -450,6 +471,23 @@ function serialise(d) {
 }
 const itemText = it => it.lines.filter(l => !NOTE_RE.test(l)).map(l => l.trim()).join(" ").replace(/^-\s+/, "");
 function itemNote(it) { const l = it.lines.find(l => NOTE_RE.test(l)); return l ? l.match(NOTE_RE)[1] : null; }
+
+/* [checked YYYY-MM-DD] and [due YYYY-MM-DD] on an item (TODO.md's head says what they mean) */
+const TAG_RE = /\s*\[(checked|due) (\d{4}-\d\d-\d\d)\]/g;
+const STALE_DAYS = 7;
+const untagged = t => t.replace(TAG_RE, "");
+function todayIso() { const d = new Date(); return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`; }
+const daysFrom = (a, b) => Math.round((Date.parse(b) - Date.parse(a)) / 864e5);
+const fmtDay = iso => new Date(iso + "T12:00:00").toLocaleDateString("en-GB", { day: "numeric", month: "short" });
+function itemState(it) {
+  const tags = {};
+  for (const m of itemText(it).matchAll(TAG_RE)) tags[m[1]] = m[2];
+  const today = todayIso();
+  const age = tags.checked ? daysFrom(tags.checked, today) : null;
+  return { due: tags.due || null, dueNow: !!tags.due && tags.due <= today, checked: tags.checked || null,
+    age, stale: age !== null && age > STALE_DAYS };
+}
+let openItems = store.get("openItems", {});
 function setNote(it, note) {
   const i = it.lines.findIndex(l => NOTE_RE.test(l));
   const clean = (note || "").replace(/\s*\n\s*/g, " ").trim();
@@ -701,23 +739,42 @@ function render() {
   if (ql && !shown) root.innerHTML = `<div class="empty">Nothing matches “${esc(q)}”.</div>`;
   const lists = doc.sections.filter(s => !isChat(s));
   const notes = lists.reduce((n, s) => n + s.items.filter(itemNote).length, 0);
+  const states = lists.flatMap(s => s.items.map(itemState));
+  const due = states.filter(x => x.dueNow).length, stale = states.filter(x => x.stale).length;
   $("#summary").textContent = ql
     ? `${shown} of ${total} items match`
-    : `${total} open items in ${lists.length} sections${notes ? ` · ${notes} note${notes > 1 ? "s" : ""}` : ""}`;
+    : `${total} open items in ${lists.length} sections${notes ? ` · ${notes} note${notes > 1 ? "s" : ""}` : ""}` +
+      `${due ? ` · ${due} due` : ""}${stale ? ` · ${stale} to re-check` : ""}`;
   window.scrollTo(0, scroll);
 }
 
 function renderUpNext(ql) {
   const box = $("#upnext");
   if (ql) { box.innerHTML = ""; return; }
-  box.innerHTML = `<h2>Top of each section</h2><div class="strip"></div>`;
+  box.innerHTML = `<h2>Due, then the top of each section</h2><div class="strip"></div>`;
   const strip = box.querySelector(".strip");
   doc.sections.forEach((s, si) => {
-    if (!s.items.length || isChat(s)) return;
+    if (isChat(s)) return;
+    s.items.forEach((it, i) => {
+      const st = itemState(it);
+      if (!st.dueNow) return;
+      const { c, g } = colours(si);
+      const b = document.createElement("button");
+      b.className = "next due"; b.style.setProperty("--c", c); b.style.setProperty("--g", g);
+      const t = untagged(itemText(it)), lead = (t.match(/^\*\*(.+?)\*\*/) || [])[1];
+      const when = st.due === todayIso() ? "Due today" : "Overdue since " + fmtDay(st.due);
+      b.innerHTML = `<span class="from"><i></i>${when} · ${inline(s.title)}</span><span class="what">${inline(lead || t)}</span>`;
+      b.title = plain(t);
+      b.onclick = () => { openItems[itemKey(it)] = true; store.set("openItems", openItems); openSection(si, i); render(); setTimeout(() => focusItem(si, i), 350); };
+      strip.appendChild(b);
+    });
+  });
+  doc.sections.forEach((s, si) => {
+    if (!s.items.length || isChat(s) || itemState(s.items[0]).dueNow) return;
     const { c, g } = colours(si);
     const b = document.createElement("button");
     b.className = "next"; b.style.setProperty("--c", c); b.style.setProperty("--g", g);
-    const t = itemText(s.items[0]), lead = (t.match(/^\*\*(.+?)\*\*/) || [])[1];
+    const t = untagged(itemText(s.items[0])), lead = (t.match(/^\*\*(.+?)\*\*/) || [])[1];
     b.innerHTML = `<span class="from"><i></i>${inline(s.title)}</span><span class="what">${inline(lead || t)}</span>`;
     b.title = plain(t);
     b.onclick = () => openSection(si, 0);
@@ -738,15 +795,35 @@ function renderItem(s, si, it, i, ql) {
   const li = document.createElement("li");
   li.className = "item"; li.tabIndex = 0; li.dataset.si = si; li.dataset.i = i;
   const rank = i + 1, note = itemNote(it), canDrag = editable && !ql;
+  const st = itemState(it), key = itemKey(it), full = untagged(itemText(it));
+  const lm = full.match(/^\*\*(.+?)\*\*\s*/), rest = lm ? full.slice(lm[0].length) : "";
+  const tags = [];
+  if (st.due) tags.push(`<span class="tag ${st.dueNow ? "due-now" : ""}">${st.dueNow ? (st.due === todayIso() ? "Due today" : "Overdue since " + fmtDay(st.due)) : "Due " + fmtDay(st.due)}</span>`);
+  if (st.stale) tags.push(`<span class="tag stale" title="Last checked ${fmtDay(st.checked)}">Checked ${st.age} days ago</span>`);
+  const tagHtml = tags.length ? `<span class="tags">${tags.join("")}</span>` : "";
+  const textHtml = lm && rest
+    ? `<button class="lead" aria-expanded="false">${inline(lm[1])}<span class="more-hint">more</span></button>${tagHtml}<div class="rest">${inline(rest)}</div>`
+    : `${inline(full)}${tagHtml}`;
+  if (st.stale) li.classList.add("is-stale");
+  if (lm && rest && (ql || openItems[key])) li.classList.add("open");
   const rankHtml = rank === 1
     ? `<span class="rank r1"><svg viewBox="0 0 30 30"><path d="${COOKIE}" fill="url(#ck${si})"/><defs><linearGradient id="ck${si}" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="${colours(si).c}"/><stop offset="1" stop-color="${colours(si).d}"/></linearGradient></defs></svg><span>1</span></span>`
     : `<span class="rank ${rank <= 3 ? "r" + rank : ""}"><span>${rank}</span></span>`;
   li.innerHTML = `
     <span class="grip ${canDrag ? "" : "off"}" title="${canDrag ? "Drag to reorder" : "Clear the search to reorder"}">${canDrag ? ICON.grip : ""}</span>
     ${rankHtml}
-    <div class="text">${inline(itemText(it))}</div>
+    <div class="text">${textHtml}</div>
     ${editable ? `<button class="act" title="${note ? "Edit note" : "Add a note"} (N)" aria-label="${note ? "Edit note" : "Add a note"}">${ICON.note}</button>` : "<span></span>"}
     ${note ? `<button class="note" title="Edit note">${ICON.quote}<span>${inline(note)}</span></button>` : ""}`;
+  const toggle = () => {
+    if (!lm || !rest) return;
+    const now = li.classList.toggle("open");
+    if (now) openItems[key] = true; else delete openItems[key];
+    li.querySelector(".lead").setAttribute("aria-expanded", now);
+    store.set("openItems", openItems);
+  };
+  const leadBtn = li.querySelector(".lead");
+  if (leadBtn) { leadBtn.setAttribute("aria-expanded", li.classList.contains("open")); leadBtn.onclick = e => { e.stopPropagation(); toggle(); }; }
   if (editable) {
     const open = e => { e && e.stopPropagation(); editNote(li, si, i); };
     li.querySelector(".act").onclick = open;
@@ -759,6 +836,7 @@ function renderItem(s, si, it, i, ql) {
       const to = i + (e.key === "ArrowUp" ? -1 : 1);
       if (!ql && to >= 0 && to < s.items.length) { move(si, i, to); focusItem(si, to); }
     } else if (e.key.toLowerCase() === "n" && !e.ctrlKey && !e.metaKey && !e.altKey) { e.preventDefault(); editNote(li, si, i); }
+    else if (e.key === "Enter" || e.key === " ") { e.preventDefault(); toggle(); }
   });
   return li;
 }
@@ -1007,8 +1085,16 @@ chatbox.addEventListener("input", fitChat);
 chatbox.addEventListener("keydown", e => { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); sendChat(); } });
 chatbox.addEventListener("focus", () => { busy = true; });
 chatbox.addEventListener("blur", () => { busy = false; setTimeout(flushPending, 0); });
-$("#expand").onclick =() => { collapsed = {}; store.set("collapsed", collapsed); render(); };
-$("#collapse").onclick = () => { collapsed = {}; doc.sections.forEach(s => collapsed[s.title] = true); store.set("collapsed", collapsed); render(); };
+$("#expand").onclick =() => {
+  collapsed = {}; store.set("collapsed", collapsed);
+  openItems = {}; doc.sections.forEach(s => s.items.forEach(it => openItems[itemKey(it)] = true)); store.set("openItems", openItems);
+  render();
+};
+$("#collapse").onclick = () => {
+  collapsed = {}; doc.sections.forEach(s => collapsed[s.title] = true); store.set("collapsed", collapsed);
+  openItems = {}; store.set("openItems", openItems);
+  render();
+};
 if (LOCAL) { poll(); setInterval(poll, 2000); } else startRemote();
 </script>
 
