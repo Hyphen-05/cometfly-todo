@@ -55,6 +55,21 @@
   --glow: color-mix(in srgb, #3be3c6 14%, transparent); --glow-2: color-mix(in srgb, #e04fd8 9%, transparent);
   --lift: 0 1px 2px rgba(20,23,33,.05), 0 12px 32px -16px rgba(20,23,33,.18);
 }
+/* Each project tab has its own accent: Cometfly's teal above, Ballpit's orange (its app's accent, #E86F24) here. */
+:root[data-board="ballpit"] {
+  --primary: #ff8a3d; --on-primary: #3d1600; --primary-soft: color-mix(in srgb, #ff8a3d 16%, transparent);
+  --glow: color-mix(in srgb, #ff8a3d 9%, transparent);
+}
+@media (prefers-color-scheme: light) {
+  :root[data-board="ballpit"]:not([data-theme="dark"]) {
+    --primary: #c2561a; --on-primary: #ffffff; --primary-soft: color-mix(in srgb, #c2561a 12%, transparent);
+    --glow: color-mix(in srgb, #e86f24 14%, transparent);
+  }
+}
+:root[data-theme="light"][data-board="ballpit"] {
+  --primary: #c2561a; --on-primary: #ffffff; --primary-soft: color-mix(in srgb, #c2561a 12%, transparent);
+  --glow: color-mix(in srgb, #e86f24 14%, transparent);
+}
 
 * { box-sizing: border-box; }
 html { background: var(--bg); }
@@ -88,15 +103,24 @@ header {
 .brand .sub.installs:empty { display: none; }
 /* The project tabs: one board, a tab per TODO.md. */
 .tabs {
-  display: inline-flex; gap: 2px; padding: 3px; border-radius: 999px; background: var(--surface-2);
+  position: relative; display: inline-flex; gap: 2px; padding: 3px; border-radius: 999px; background: var(--surface-2);
   box-shadow: inset 0 0 0 1px var(--line);
 }
 .tabs button {
-  border: 0; cursor: pointer; height: 38px; padding: 0 18px; border-radius: 999px; background: none;
-  color: var(--muted); font-size: 14px; font-weight: 600; transition: background .15s, color .15s;
+  position: relative; z-index: 1; border: 0; cursor: pointer; height: 38px; padding: 0 18px; border-radius: 999px; background: none;
+  color: var(--muted); font-size: 14px; font-weight: 600; transition: color .25s;
 }
 .tabs button:hover { color: var(--text); }
-.tabs button[aria-selected="true"] { background: var(--primary); color: var(--on-primary); }
+.tabs button[aria-selected="true"] { color: var(--on-primary); }
+/* The selected tab's pill is one shape that slides between tabs, rather than each button lighting up on its own. */
+.tabs .ind {
+  position: absolute; left: 0; top: 3px; height: 38px; border-radius: 999px; background: var(--primary);
+  width: var(--w, 0); transform: translateX(var(--x, 0));
+}
+.tabs.ready .ind { transition: transform .42s cubic-bezier(.2,1.25,.35,1), width .42s cubic-bezier(.2,1.25,.35,1), background .3s; }
+.skel { height: 88px; border-radius: var(--r-card); background: var(--surface); box-shadow: inset 0 0 0 1px var(--line); animation: skel 1.2s ease-in-out infinite alternate; }
+.skel.s { height: 62px; }
+@keyframes skel { from { opacity: .45; } to { opacity: .9; } }
 .search { position: relative; flex: 0 1 320px; }
 .search input {
   width: 100%; height: 44px; padding: 0 40px 0 44px; border-radius: 999px; border: 0; outline: none;
@@ -379,7 +403,7 @@ body.dragging .act { opacity: 0 !important; }
       <div><h1>Comettea TODO</h1><div class="sub" id="summary">Reading TODO.md…</div><div class="sub installs" id="installs"></div></div>
     </div>
     <div class="tabs" role="tablist" aria-label="Project" id="tabs">
-      <button role="tab" data-b="cometfly">Cometfly</button><button role="tab" data-b="ballpit">Ballpit</button>
+      <span class="ind" aria-hidden="true"></span><button role="tab" data-b="cometfly">Cometfly</button><button role="tab" data-b="ballpit">Ballpit</button>
     </div>
     <label class="search">
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
@@ -1058,14 +1082,16 @@ async function poll() {
     const b = BOARD;
     const r = await fetch("/todo?b=" + b, { cache: "no-store" });
     const j = await r.json();
-    if (b !== BOARD) return; // the tab was switched while this was in flight
+    if (!j.error) boardCache[b] = j;
+    if (b !== BOARD || switching) return; // the tab was switched while this was in flight
     online = true;
     showInstalls(j.installs);
     if (j.error) banner("Can't read TODO.md: " + esc(j.error));
     else if (j.hash !== hash && !saving) {
       if (busy) pendingReload = j;
-      else { const first = hash === null; load(j.text, j.hash); if (!first) toast("TODO.md was just updated"); }
+      else { const quiet = hash === null || fromCache; load(j.text, j.hash); if (!quiet) toast("TODO.md was just updated"); }
     }
+    fromCache = false;
   } catch { online = false; }
   setStatus();
 }
@@ -1092,7 +1118,8 @@ async function pollGas() {
   try {
     const b = BOARD;
     const j = JSON.parse(await gasCall("boardState", b));
-    if (b !== BOARD) return; // the tab was switched while this was in flight
+    boardCache[b] = j;
+    if (b !== BOARD || switching) return; // the tab was switched while this was in flight
     snap = j.snap; pending = j.pending; online = true;
     showInstalls(j.installs);
   } catch { online = false; }
@@ -1152,20 +1179,73 @@ $("#collapse").onclick = () => {
 };
 /* ---------- tabs: switching drops the open list and fetches the other TODO.md ---------- */
 function showTabs() {
-  for (const t of document.querySelectorAll("#tabs button")) t.setAttribute("aria-selected", String(t.dataset.b === BOARD));
+  let sel = null;
+  for (const t of document.querySelectorAll("#tabs button")) {
+    t.setAttribute("aria-selected", String(t.dataset.b === BOARD));
+    if (t.dataset.b === BOARD) sel = t;
+  }
+  document.documentElement.dataset.board = BOARD;
+  const tabs = $("#tabs");
+  if (sel) { tabs.style.setProperty("--x", sel.offsetLeft + "px"); tabs.style.setProperty("--w", sel.offsetWidth + "px"); }
 }
-function switchBoard(b) {
+/* Each tab's last answer, so switching back and forth draws the list at once; the poll that follows corrects it. */
+const boardCache = {};
+let fromCache = false, switchTok = 0, switching = false; // polls that land mid-slide are dropped
+const calm = () => matchMedia("(prefers-reduced-motion: reduce)").matches;
+function slide(el, from, to, ms, easing) {
+  if (calm() || document.hidden) return Promise.resolve();
+  // A hidden or minimised window never finishes an animation, so the switch waits at most a little longer than it.
+  const a = el.animate([from, to], { duration: ms, easing, fill: "both" });
+  return Promise.race([a.finished.catch(() => {}), new Promise(r => setTimeout(r, ms + 60))]);
+}
+function showFromCache(b) {
+  const c = boardCache[b];
+  if (!c) return false;
+  fromCache = true;
+  if (LOCAL) { showInstalls(c.installs); load(c.text, c.hash); }
+  else { snap = c.snap; pending = c.pending || {}; showInstalls(c.installs); rebuild(); }
+  return true;
+}
+async function switchBoard(b) {
   if (b === BOARD || !BOARDS.includes(b)) return;
-  BOARD = b; store.set("board", b); showTabs();
+  const dir = BOARDS.indexOf(b) > BOARDS.indexOf(BOARD) ? 1 : -1, tok = ++switchTok;
+  BOARD = b; store.set("board", b); showTabs(); switching = true;
+  const page = $(".page");
+  page.getAnimations().forEach(a => a.cancel());
+  await slide(page, { opacity: 1, transform: "none" }, { opacity: 0, transform: `translateX(${-dir * 28}px)` }, 140, "cubic-bezier(.4,0,1,1)");
+  if (tok !== switchTok) return; // switched again mid-slide; the later switch carries on
+  switching = false;
   doc = null; hash = null; snap = null; pending = {}; pendingReload = null; editable = true;
   collapsed = store.get("collapsed", {}); openItems = store.get("openItems", {}); colourOf = store.get("colourOf", {});
   showInstalls(null); banner("");
-  $("#sections").innerHTML = ""; $("#upnext").innerHTML = ""; $("#rail").innerHTML = ""; $("#bubbles").innerHTML = "";
-  $("#summary").textContent = "Reading TODO.md…";
+  if (!showFromCache(b)) {
+    // Nothing kept yet for this tab: grey placeholders hold the page's shape until the list arrives.
+    $("#upnext").innerHTML = ""; $("#rail").innerHTML = ""; $("#bubbles").innerHTML = "";
+    $("#sections").innerHTML = '<div class="skel"></div><div class="skel s"></div><div class="skel s"></div>';
+    $("#summary").textContent = "Reading TODO.md…";
+  }
+  window.scrollTo(0, 0);
+  page.getAnimations().forEach(a => a.cancel());
+  slide(page, { opacity: 0, transform: `translateX(${dir * 28}px)` }, { opacity: 1, transform: "none" }, 300, "cubic-bezier(.2,.9,.3,1)")
+    .then(() => { if (tok === switchTok) page.getAnimations().forEach(a => a.cancel()); });
   if (LOCAL) poll(); else if (gasKey) pollGas();
+}
+/* Fetch the other tabs once at the start, so the first switch is instant too. */
+async function prefetchOthers() {
+  for (const b of BOARDS) {
+    if (b === BOARD || boardCache[b]) continue;
+    try {
+      if (LOCAL) { const j = await (await fetch("/todo?b=" + b, { cache: "no-store" })).json(); if (!j.error) boardCache[b] = j; }
+      else if (gasKey) boardCache[b] = JSON.parse(await gasCall("boardState", b));
+    } catch {}
+  }
 }
 for (const t of document.querySelectorAll("#tabs button")) t.onclick = () => switchBoard(t.dataset.b);
 showTabs();
+document.fonts && document.fonts.ready.then(showTabs);
+addEventListener("resize", showTabs);
+requestAnimationFrame(() => requestAnimationFrame(() => $("#tabs").classList.add("ready")));
+setTimeout(prefetchOthers, 1500);
 
 if (LOCAL) { poll(); setInterval(poll, 2000); } else startRemote();
 </script>
