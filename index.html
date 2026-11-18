@@ -928,10 +928,11 @@ function move(si, from, to) {
    web app) keeps changes as "pending" rows that the next sync folds into TODO.md. ---------- */
 const LOCAL = /^(127\.0\.0\.1|localhost)$/.test(location.hostname);
 const GAS = typeof google !== "undefined" && !!(google.script && google.script.run);
-/* The installed copy (github.com/Hyphen-05/cometfly-todo, served by GitHub Pages) is this page too. It reaches the same
-   Apps Script over plain HTTPS, with the key that opening the page once as …/#k=<key> saved on the phone. */
+/* The installed copy (github.com/Hyphen-05/cometfly-todo, served by GitHub Pages) is this page too. It reaches the
+   board's store over plain HTTPS, with the key that opening the page once as …/#k=<key> saved on the phone. The store
+   is a Cloudflare Worker; the old Apps Script page reads it the same way. */
 const SHELL = !LOCAL && !GAS && /\.github\.io$/.test(location.hostname);
-const BOARD_URL = "https://script.google.com/macros/s/AKfycbwZJwJQY5RRc0kMY2CGyDOVE-YTRV5L5Gvrx-IzY0hzQuHMPj-X3Qz7QrajswqpF9dSJQ/exec";
+const BOARD_URL = "https://todo.comettea.com/";
 let gasKey = "";
 async function shellCall(fn, ...args) {
   if (fn === "boardState") {
@@ -946,7 +947,7 @@ async function shellCall(fn, ...args) {
   if (!j.ok) throw new Error("not saved");
 }
 function gasCall(fn, ...args) {
-  if (SHELL) return shellCall(fn, ...args);
+  if (SHELL || GAS) return shellCall(fn, ...args);
   return new Promise((ok, fail) => google.script.run.withSuccessHandler(ok).withFailureHandler(fail)[fn](gasKey, ...args));
 }
 let snap = null, pending = {};
