@@ -99,7 +99,7 @@ header {
   margin: 0; font: 760 22px/1 var(--display); font-variation-settings: "wdth" 118, "opsz" 40; letter-spacing: -.015em;
 }
 .brand .sub { margin-top: 4px; font-size: 12.5px; color: var(--muted); font-variant-numeric: tabular-nums; }
-/* The install estimate as one small pill: the total and the daily pace; hover or tap shows the full line.
+/* The install estimate as one small pill: the total, the daily pace and the past 24 hours; hover or tap shows the full line.
    Block-level flex, so an empty one sits no lower than a full one. */
 .installs {
   display: flex; width: fit-content; align-items: center; gap: 6px; height: 24px; box-sizing: border-box;
@@ -1053,9 +1053,10 @@ function showInstalls(o) {
   el.textContent = ""; el.title = "";
   if (!o || !o.text) return;
   el.title = o.text + " · " + ago(o.at);
-  const total = /≈\s*([\d,]+)/.exec(o.text), pace = /~(\d+)\/day/.exec(o.text);
+  const total = /≈\s*([\d,]+)/.exec(o.text), pace = /~(\d+)\/day/.exec(o.text), day = /~(\d+) in 24 h/.exec(o.text);
   if (!total) { el.textContent = o.text; return; } // a line in a new shape shows whole rather than wrong
-  el.innerHTML = `<b>≈ ${total[1]}</b> installs` + (pace ? ` <span class="dim">· ~${pace[1]}/day</span>` : "");
+  el.innerHTML = `<b>≈ ${total[1]}</b> installs` + (pace ? ` <span class="dim">· ~${pace[1]}/day</span>` : "")
+    + (day ? ` <span class="dim">· ${day[1]} in 24 h</span>` : "");
 }
 /* A tap (the phone has no hover) shows the whole estimate line for a few seconds. */
 $("#installs").addEventListener("click", e => { if (e.currentTarget.title) toast(e.currentTarget.title); });
