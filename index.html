@@ -106,7 +106,9 @@ header {
   margin-top: 6px; padding: 3px 10px; border-radius: 999px;
   background: color-mix(in srgb, var(--primary) 12%, transparent); color: var(--text); font-size: 12.5px;
   font-variant-numeric: tabular-nums; cursor: pointer; white-space: nowrap;
+  user-select: none; -webkit-user-select: none; touch-action: manipulation; transition: opacity .2s;
 }
+.installs.refreshing { opacity: .5; }
 .installs b { font-weight: 700; color: var(--primary); }
 .installs .dim { color: var(--muted); }
 /* Ballpit has no estimate: the pill's space stays, so the header is the same height on both tabs. */
@@ -1058,8 +1060,32 @@ function showInstalls(o) {
   el.innerHTML = `<b>≈ ${total[1]}</b> installs` + (pace ? ` <span class="dim">· ~${pace[1]}/day</span>` : "")
     + (day ? ` <span class="dim">· ${day[1]} in 24 h</span>` : "");
 }
-/* A tap (the phone has no hover) shows the whole estimate line for a few seconds. */
-$("#installs").addEventListener("click", e => { if (e.currentTarget.title) toast(e.currentTarget.title); });
+/* A tap (the phone has no hover) shows the whole estimate line for a few seconds; a double tap or click refreshes it.
+   On the PC the server reruns estimate.py; elsewhere the store redoes the sum from GitHub's count, so it works with the
+   PC off. Two clicks within 400 ms count as a double, as phones don't send dblclick reliably. */
+let installsTap = 0, installsBusy = false;
+$("#installs").addEventListener("click", e => {
+  const el = e.currentTarget, now = Date.now();
+  if (now - installsTap < 400) { installsTap = 0; refreshInstalls(); return; }
+  installsTap = now;
+  if (el.title && !installsBusy) toast(el.title);
+});
+async function refreshInstalls() {
+  const el = $("#installs");
+  if (installsBusy || !el.title || (!LOCAL && !SHELL && !GAS)) return;
+  installsBusy = true; el.classList.add("refreshing"); toast("Refreshing installs…");
+  try {
+    const r = LOCAL ? await fetch("/installs-refresh", { method: "POST" })
+      : await fetch(BOARD_URL, { method: "POST", body: JSON.stringify({ k: gasKey, op: "installs-refresh" }) });
+    const j = JSON.parse(await r.text());
+    if (j.error || !j.installs) throw new Error(j.error || "no line");
+    showInstalls(j.installs);
+    if (boardCache.cometfly) boardCache.cometfly.installs = j.installs;
+    toast(j.fresh === false ? "Can't refresh until the PC sends the next estimate" : "Installs updated");
+  } catch (err) {
+    toast("Couldn't refresh installs: " + (err && err.message || "no answer"));
+  } finally { installsBusy = false; el.classList.remove("refreshing"); }
+}
 function banner(html) { $("#banner").innerHTML = html ? `<div class="banner">${html}</div>` : ""; }
 function toast(msg) {
   if (!msg) return;
