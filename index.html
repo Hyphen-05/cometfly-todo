@@ -358,8 +358,8 @@ li.item.open .more-hint { display: none; }
 }
 .tag.due-now { background: color-mix(in srgb, var(--danger) 22%, transparent); color: var(--danger); }
 .tag.stale { background: color-mix(in srgb, var(--note) 20%, transparent); color: var(--note-text); }
-li.item.is-stale .text { opacity: .55; }
-li.item.is-stale:hover .text, li.item.is-stale:focus-within .text { opacity: 1; }
+li.item.is-stale { background: var(--note-bg); box-shadow: inset 3px 0 0 var(--note); }
+li.item.is-stale:hover, li.item.is-stale:focus-within { background: color-mix(in srgb, var(--note) 18%, var(--surface-2)); }
 .next.due { box-shadow: var(--lift), inset 0 0 0 2px var(--danger); }
 .next.due .from { color: var(--danger); }
 
